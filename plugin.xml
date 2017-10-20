@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<plugin xmlns="http://cordova.apache.org/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="cordova-plugin-referrer"
+        version="1.0.0">
+    <engines>
+        <engine name="cordova" version=">=3.0.0" />
+    </engines>
+
+    <name>Android Install Referrer Plugin</name>
+    <description>Receiver for install referrer broadcast</description>
+    <license>Apache 2.0</license>
+    <keywords>referrer,android,cordova</keywords>
+
+    <js-module src="www/referrer.js" name="referrer">
+        <merges target="referrer" />
+    </js-module>
+
+    <platform name="android">
+        <source-file src="src/Receiver.java" target-dir="src/com/kevga/referrer/" />
+        <source-file src="src/Referrer.java" target-dir="src/com/kevga/referrer/" />
+
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <receiver android:exported="true" android:enabled="true" android:name="com.kevga.referrer.Receiver">
+                <intent-filter>
+                    <action android:name="com.android.vending.INSTALL_REFERRER" />
+                </intent-filter>
+            </receiver>
+        </config-file>
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="Referrer">
+                <param name="android-package" value="com.kevga.referrer.Referrer" />
+            </feature>
+        </config-file>
+    </platform>
+</plugin>

@@ -1,0 +1,27 @@
+{
+  "name": "cordova-plugin-referrer",
+  "version": "1.0.0",
+  "description": "Receiver for install referrer broadcast",
+  "cordova": {
+    "id": "cordova-plugin-referrer",
+    "platforms": [
+      "android"
+    ]
+  },
+  "keywords": [
+    "cordova",
+    "android",
+    "install",
+    "referrer"
+  ],
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.0.0"
+    }
+  ],
+  "author": {
+    "name": "Kevin Galitzki",
+    "email": "dakari91@gmail.com"
+  }
+}
