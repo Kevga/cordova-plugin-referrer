@@ -7,21 +7,15 @@ import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CordovaWebView;
 
 //Android imports
-import android.os.Bundle;
 import android.content.Context;
 import android.app.Application;
 import android.app.Activity;
 import android.util.Log;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
 
 //Java Imports
-import java.util.ArrayList;
-import java.util.List;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Iterator;
+import java.util.*;
 import java.lang.Exception;
 import org.json.JSONException;
 import org.json.JSONArray;
@@ -97,9 +91,13 @@ public class Referrer extends CordovaPlugin {
                     String referrer = sharedPreferences.getString(KEY, "");
 
                     //If no referrer was found, try defaultSharedPref
-                    if (referrer.length() == 0){
+                    if (referrer == null || referrer.length() == 0){
                         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
                         referrer = sharedPreferences.getString(KEY, "");
+                    }
+
+                    if (referrer == null) {
+                        referrer = "";
                     }
 
                     callbackContext.success(referrer);
