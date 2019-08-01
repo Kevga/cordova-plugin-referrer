@@ -130,7 +130,7 @@ public class Referrer extends CordovaPlugin {
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    final String installer = context.getPackageManager().getInstallerPackageName(context.getPackageName());
+                    String installer = context.getPackageManager().getInstallerPackageName(context.getPackageName());
                     if (installer == null) {
                         installer = "";
                     }
