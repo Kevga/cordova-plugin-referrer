@@ -49,6 +49,10 @@ public class Referrer extends CordovaPlugin {
         try {
             if ("getReferrer".equals(action)) {
                 getReferrer(callbackContext);
+            } else if ("getInstallSource".equals(action)) {
+                getInstallSource(callbackContext);
+            } else if ("isInstalledByPlayStore".equals(action)) {
+                isInstalledByPlayStore(callbackContext);
             } else {
                 String error = "Unknown command: "+action;
                 if (enableLog) {
@@ -106,4 +110,34 @@ public class Referrer extends CordovaPlugin {
             }
         }).start();
     }
+
+    public void isInstalledByPlayStore(final CallbackContext callbackContext) {
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    List<String> validInstallers = new ArrayList<>(Arrays.asList("com.android.vending", "com.google.android.feedback"));
+                    final String installer = context.getPackageManager().getInstallerPackageName(context.getPackageName());
+                    callbackContext.success((installer != null && validInstallers.contains(installer)) ? "true" : "false");
+                } catch (Exception e) {
+                    callbackContext.error(e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    public void getInstallSource(final CallbackContext callbackContext) {
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    final String installer = context.getPackageManager().getInstallerPackageName(context.getPackageName());
+                    callbackContext.success(installer);
+                } catch (Exception e) {
+                    callbackContext.error(e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
 }
