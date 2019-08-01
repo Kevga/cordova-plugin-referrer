@@ -131,6 +131,9 @@ public class Referrer extends CordovaPlugin {
             public void run() {
                 try {
                     final String installer = context.getPackageManager().getInstallerPackageName(context.getPackageName());
+                    if (installer == null) {
+                        installer = "";
+                    }
                     callbackContext.success(installer);
                 } catch (Exception e) {
                     callbackContext.error(e.getMessage());
